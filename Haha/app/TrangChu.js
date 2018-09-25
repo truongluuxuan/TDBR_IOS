@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
-import { StyleSheet,SafeAreaView, Platform, ToastAndroid, View, Image, Text, TextInput, TouchableOpacity, Alert, YellowBox, ListView } from 'react-native';
+import { StyleSheet,SafeAreaView, Platform,  View, Image, Text, TextInput, TouchableOpacity, Alert, YellowBox, ListView } from 'react-native';
 import styles from './StylesChung';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 var Realm = require('realm');
 
@@ -82,7 +83,7 @@ export default class MainActivity extends Component {
       if (findAndReplace(this.state.Student_Name, " ", "") == "" || findAndReplace(this.state.Student_Class, " ", "") == ""
         || findAndReplace(this.state.Student_Subject, " ", "") == "") {
         //  Alert.alert("Bố giã đủ thông tin vào hộ con cái!");
-        ToastAndroid.show('Bố giã đủ thông tin vào hộ con cái!', ToastAndroid.SHORT);
+        this.refs.toast.show('Bố giã đủ thông tin vào hộ con cái!');
       } else {
         realm.create('Student_Info', {
           student_id: ID,
@@ -99,7 +100,7 @@ export default class MainActivity extends Component {
         this.setState({ Student_Subject: '' });
         this.subjectRef.clear();
         // Alert.alert("Thêm mới sinh viên thành công!")
-        ToastAndroid.show('Thêm mới sinh viên thành công!', ToastAndroid.SHORT);
+        this.refs.toast.show('Thêm mới sinh viên thành công!');
       }
 
 
@@ -159,7 +160,7 @@ export default class MainActivity extends Component {
           <Text style={styles.TextStyle}> Bấm vào đơi để thêm bản ghi </Text>
 
         </TouchableOpacity>
-
+        <Toast ref="toast"/>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("main")} activeOpacity={0.7} style={styles.button} >
 
           <Text style={styles.TextStyle}> Cho tao xem danh sách phát nào </Text>
